@@ -1,6 +1,18 @@
 project(Plugin VERSION 0.0.0)
-find_package(SST)
 include(GetSystemBits)
+find_package(SST)
+
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    set(INNOSETUP_EXPECTED_SHA256
+        "9345EE029FAA0B7AED0818C3D5B227699EF9A496CCE79E20C19EB9D6EF2E2C2D"
+        CACHE STRING
+        "Override InnoSetup installer SHA256"
+    )
+    find_package(InnoSetup 6.5.3)
+    message(STATUS "InnoSetup: ${INNOSETUP_ROOT_DIR}")
+    message(STATUS "InnoSetup Compiler: ${INNOSETUP_COMPILER_EXECUTABLE}")
+    message(STATUS "InnoSetup Architecture ID: ${INNOSETUP_ARCH_ID}")
+endif()
 
 add_library(plugin)
 set_target_properties(plugin PROPERTIES SUFFIX ".clap")
@@ -12,21 +24,12 @@ target_link_libraries(
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
     target_sources(plugin PRIVATE "src/win/plugin.cpp")
 
-    set(INNOSETUP_EXPECTED_SHA256
-        "9345EE029FAA0B7AED0818C3D5B227699EF9A496CCE79E20C19EB9D6EF2E2C2D"
-        CACHE STRING
-        "Override InnoSetup installer SHA256"
-    )
-    find_package(InnoSetup 6.5.3)
-    message(STATUS "InnoSetup: ${INNOSETUP_ROOT_DIR}")
-    message(STATUS "InnoSetup Compiler: ${INNOSETUP_COMPILER_EXECUTABLE}")
-    message(STATUS "InnoSetup Architecture ID: ${INNOSETUP_ARCH_ID}")
-
     # Optional, .iss should generate the same thing here by default
     set(INSTALLER_NAME
         "${PROJECT_NAME}-${PROJECT_VERSION}-${CMAKE_SYSTEM_NAME}-${SYSTEM_BITS}bits-setup"
     )
 
+    # Make sure to generate your own GUID
     add_custom_target(
         installer
         COMMAND
