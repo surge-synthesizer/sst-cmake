@@ -1,0 +1,7 @@
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+    set(PLATFORM "Windows")
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
+    set(PLATFORM "Linux")
+elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+    set(PLATFORM "macOS")
+endif()
