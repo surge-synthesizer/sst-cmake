@@ -2,10 +2,12 @@ find_program(INNOSETUP_COMPILER_EXECUTABLE iscc)
 
 if(NOT INNOSETUP_COMPILER_EXECUTABLE)
     if(NOT DEFINED InnoSetup_FIND_VERSION)
-        set(InnoSetup_FIND_VERSION "6.5.3")
+        set(INNOSETUP_VERSION "6.5.3")
+    else()
+        set(INNOSETUP_VERSION InnoSetup_FIND_VERSION)
     endif()
 
-    if(InnoSetup_FIND_VERSION STREQUAL "6.5.3")
+    if(INNOSETUP_VERSION STREQUAL "6.5.3")
         if(NOT DEFINED INNOSETUP_EXPECTED_SHA256)
             set(INNOSETUP_EXPECTED_SHA256
                 "9345EE029FAA0B7AED0818C3D5B227699EF9A496CCE79E20C19EB9D6EF2E2C2D"
@@ -19,8 +21,8 @@ if(NOT INNOSETUP_COMPILER_EXECUTABLE)
         message(STATUS "Verifying InnoSetup installer with expected hash")
         file(
             DOWNLOAD
-                "https://files.jrsoftware.org/is/6/innosetup-${InnoSetup_FIND_VERSION}.exe"
-                "${CMAKE_BINARY_DIR}/innosetup-${InnoSetup_FIND_VERSION}.exe"
+                "https://files.jrsoftware.org/is/6/innosetup-${INNOSETUP_VERSION}.exe"
+                "${CMAKE_BINARY_DIR}/innosetup-${INNOSETUP_VERSION}.exe"
             EXPECTED_HASH SHA256=${INNOSETUP_EXPECTED_SHA256}
         )
     else()
@@ -30,27 +32,30 @@ if(NOT INNOSETUP_COMPILER_EXECUTABLE)
         )
         file(
             DOWNLOAD
-                "https://files.jrsoftware.org/is/6/innosetup-${InnoSetup_FIND_VERSION}.exe"
-                "${CMAKE_BINARY_DIR}/innosetup-${InnoSetup_FIND_VERSION}.exe"
+                "https://files.jrsoftware.org/is/6/innosetup-${INNOSETUP_VERSION}.exe"
+                "${CMAKE_BINARY_DIR}/innosetup-${INNOSETUP_VERSION}.exe"
         )
     endif()
 
     execute_process(
         COMMAND
-            "${CMAKE_BINARY_DIR}/innosetup-${InnoSetup_FIND_VERSION}.exe"
-            /VERYSILENT /CURRENTUSER /DIR=innosetup-${InnoSetup_FIND_VERSION}
+            "${CMAKE_BINARY_DIR}/innosetup-${INNOSETUP_VERSION}.exe" /VERYSILENT
+            /CURRENTUSER /DIR=innosetup-${INNOSETUP_VERSION}
     )
 
     find_program(
         INNOSETUP_COMPILER_EXECUTABLE
         iscc
-        PATHS ${CMAKE_BINARY_DIR}/innosetup-${InnoSetup_FIND_VERSION}
+        PATHS ${CMAKE_BINARY_DIR}/innosetup-${INNOSETUP_VERSION}
     )
 endif()
 
 if(INNOSETUP_COMPILER_EXECUTABLE)
     set(INNOSETUP_COMPILER_FOUND TRUE)
     cmake_path(GET INNOSETUP_COMPILER_EXECUTABLE PARENT_PATH INNOSETUP_ROOT_DIR)
+    set(INNOSETUP_ISS_TEMPLATE
+        "${CMAKE_CURRENT_LIST_DIR}/FindInnoSetup/template.iss"
+    )
     set(INNOSETUP_FOUND TRUE)
 endif()
 

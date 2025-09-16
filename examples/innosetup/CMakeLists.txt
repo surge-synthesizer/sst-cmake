@@ -12,6 +12,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
     message(STATUS "InnoSetup: ${INNOSETUP_ROOT_DIR}")
     message(STATUS "InnoSetup Compiler: ${INNOSETUP_COMPILER_EXECUTABLE}")
     message(STATUS "InnoSetup Architecture ID: ${INNOSETUP_ARCH_ID}")
+    message(STATUS "InnoSetup .iss template: ${INNOSETUP_ISS_TEMPLATE}")
 endif()
 
 add_library(plugin)
@@ -39,7 +40,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
             /DSRC="${CMAKE_SOURCE_DIR}" /DBIN="$<TARGET_FILE_DIR:plugin>"
             /DIcon="${CMAKE_CURRENT_LIST_DIR}/icon.ico"
             /DArch="${INNOSETUP_ARCH_ID}" /DBits="${SYSTEM_BITS}"
-            "${CMAKE_CURRENT_LIST_DIR}/make_installer.iss"
+            "${INNOSETUP_ISS_TEMPLATE}"
         DEPENDS plugin
     )
 endif()
