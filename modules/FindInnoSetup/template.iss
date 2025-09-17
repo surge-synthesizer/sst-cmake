@@ -64,8 +64,19 @@ Source: "{#StagedAssets}\{#Name}.exe"; DestDir: "{app}"; Components: SA; Flags: 
 [Components]
 Name: "Data"; Description: "Data files"; Types: full custom clap vst3 standalone; Flags: fixed disablenouninstallwarning
 [Files]
-Source: "{#Data}\*"; DestDir: "{autoappdata}"; Flags: ignoreversion recursesubdirs
+Source: "{#Data}\*"; DestDir: "{code:get_data_path}"; Flags: ignoreversion recursesubdirs
 #endif
 
 [Icons]
 Name: "{group}\{#Name}"; Filename: "{app}\{#Name}.exe"; Flags: createonlyiffileexists
+
+[Code]
+function get_data_path(Param: string): string;
+begin
+  if IsAdminInstallMode then
+    // System-wide → ProgramData
+    Result := ExpandConstant('{commonappdata}')
+  else
+    // Per-user → LocalAppData
+    Result := ExpandConstant('{localappdata}');
+end;
