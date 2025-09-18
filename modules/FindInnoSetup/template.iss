@@ -40,8 +40,9 @@ WizardImageFile=blank.png
 WizardSizePercent=100
 WizardSmallImageFile=blank.png
 WizardStyle=modern
-PrivilegesRequired=lowest
-PrivilegesRequiredOverridesAllowed=dialog
+; This is how we enable a non-elevated install, disabled until we resolve issues with DAWs
+; PrivilegesRequired=lowest
+; PrivilegesRequiredOverridesAllowed=dialog
 
 [Types]
 Name: "full"; Description: "Full installation"
