@@ -52,6 +52,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
             /O"$<TARGET_FILE_DIR:innosetup_plugin>" /DName="innosetup_plugin"
             /DNameCondensed="innosetup_plugin" /DVersion="0.0.0"
             /DID="B4D0D906-1549-43AE-A1DA-50763394B707"
+            /DCLAP /DVST3
             /DIcon="${CMAKE_CURRENT_LIST_DIR}/icon.ico"
             /DArch="${INNOSETUP_ARCH_ID}"
             /DLicense="${CMAKE_SOURCE_DIR}/LICENSE"

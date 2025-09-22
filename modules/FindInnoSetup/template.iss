@@ -47,23 +47,55 @@ WizardStyle=modern
 [Types]
 Name: "full"; Description: "Full installation"
 Name: "custom"; Description: "Custom"; Flags: iscustom
+#ifdef CLAP
 Name: "clap"; Description: "CLAP installation"
+#endif
+#ifdef VST3
 Name: "vst3"; Description: "VST3 installation"
+#endif
+#ifdef SA
 Name: "standalone"; Description: "Standalone installation"
+#endif
 
 [Components]
+#ifdef CLAP
 Name: "CLAP"; Description: "{#Name} CLAP"; Types: full custom clap; Flags: checkablealone
+#endif
+
+#ifdef VST3
 Name: "VST3"; Description: "{#Name} VST3"; Types: full custom vst3; Flags: checkablealone
+#endif
+
+#ifdef SA
 Name: "SA"; Description: "{#Name} Standalone"; Types: full custom standalone; Flags: checkablealone
+#endif
 
 [Files]
+#ifdef CLAP
 Source: "{#StagedAssets}\{#Name}.clap"; DestDir: "{autocf}\CLAP\{#Publisher}\"; Components: CLAP; Flags: ignoreversion
+#endif
+
+#ifdef VST3
 Source: "{#StagedAssets}\{#Name}.vst3\*"; DestDir: "{autocf}\VST3\{#Publisher}\{#Name}.vst3\"; Components: VST3; Flags: ignoreversion recursesubdirs
+#endif
+
+#ifdef SA
 Source: "{#StagedAssets}\{#Name}.exe"; DestDir: "{app}"; Components: SA; Flags: ignoreversion
+#endif
 
 #ifdef Data
 [Components]
-Name: "Data"; Description: "Data files"; Types: full custom clap vst3 standalone; Flags: fixed disablenouninstallwarning
+#ifdef CLAP
+#define FORMATS " clap"
+#endif
+#ifdef VST3
+#define FORMATS FORMATS + " vst3"
+#endif
+#ifdef SA
+#define FORMATS FORMATS + " standalone"
+#endif
+
+Name: "Data"; Description: "Data files"; Types: full custom{#FORMATS}; Flags: fixed disablenouninstallwarning
 [Files]
 Source: "{#Data}\*"; DestDir: "{code:get_data_path}"; Flags: ignoreversion recursesubdirs
 #endif
