@@ -35,12 +35,16 @@ SetupIconFile={#Icon}
 SolidCompression=yes
 UninstallDisplayIcon={uninstallexe}
 UninstallFilesDir={autoappdata}\{#Name}\uninstall
-WizardImageAlphaFormat=defined
-WizardImageFile=blank.png
-WizardSizePercent=100
-WizardSmallImageFile=blank.png
 WizardStyle=modern
-; This is how we enable a non-elevated install, disabled until we resolve issues with DAWs
+WizardSizePercent=100
+WizardImageAlphaFormat=defined
+#ifdef Banner
+WizardImageFile={#Banner}
+#endif
+WizardSmallImageFile=blank.png
+
+; Enable non-elevated install. Disabled until we resolve issues with DAWs.
+; Code section below will convert AppData location from Roaming to Local
 ; PrivilegesRequired=lowest
 ; PrivilegesRequiredOverridesAllowed=dialog
 
