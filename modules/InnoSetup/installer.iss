@@ -10,11 +10,19 @@
 #define Version "0.0.0"
 #endif
 
+#if Arch == "arm64"
+#define ArchFriendly "arm"
+#elif Arch == "x64compatible"
+#define ArchFriendly "x64"
+#elif Arch == "x86compatible"
+#define ArchFriendly "x86"
+#endif
+
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Setup]
-OutputBaseFilename={#NameCondensed}-Windows-{#Arch}-{#Version}
+OutputBaseFilename={#NameCondensed}-Windows-{#ArchFriendly}-{#Version}
 AppId={#ID}
 AppName={#Name}
 AppPublisher={#Publisher}
@@ -24,7 +32,7 @@ AppUpdatesURL={#URL}
 AppVerName={#Name}
 AppVersion={#Version}
 ArchitecturesAllowed={#Arch}
-ArchitecturesInstallIn64BitMode={#Arch}
+ArchitecturesInstallIn64BitMode=x64compatible arm64
 CloseApplicationsFilter=*.exe,*.vst3
 DefaultDirName={autopf}\{#Publisher}\{#Name}\
 DefaultGroupName={#Name}
