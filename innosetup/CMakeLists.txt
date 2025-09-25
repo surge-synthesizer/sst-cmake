@@ -1,34 +1,28 @@
 find_program(INNOSETUP_COMPILER_EXECUTABLE iscc)
 
-if(NOT INNOSETUP_COMPILER_EXECUTABLE)
-    add_custom_target(
-        innosetup_compiler
-        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-        COMMAND
-            ${CMAKE_COMMAND} -P
-            "${CMAKE_CURRENT_LIST_DIR}/install_innosetup.cmake"
-            -DTARGET_DIR="${CMAKE_BINARY_DIR}"
-    )
-
-    set(INNOSETUP_COMPILER_EXECUTABLE
-        "${CMAKE_BINARY_DIR}/innosetup-6.5.4/iscc.exe"
-        PARENT_SCOPE
-    )
+if("${INNOSETUP_COMPILER_EXECUTABLE}" STREQUAL "INNOSETUP_COMPILER_EXECUTABLE-NOTFOUND")
+    message(STATUS "Inno Compiler was not found. Setting up echo as compiler")
+    set(INNOSETUP_COMPILR_EXECUTABLE "${CMAKE_PROGRAM} -E echo")
 else()
-    add_custom_target(innosetup_compiler)
+    message(STATUS "ISCC found: ${INNOSETUP_COMPILER_EXECUTABLE}")
+
 endif()
 
-message(STATUS "Resolved iscc=${INNOSETUP_COMPILER_EXECUTABLE}")
 
-set(INNOSETUP_INSTALL_SCRIPT
-    "${CMAKE_CURRENT_LIST_DIR}/installer.iss"
-    PARENT_SCOPE
-)
+add_custom_target(innosetup_compiler)
+set(INNOSETUP_INSTALL_SCRIPT "${CMAKE_CURRENT_LIST_DIR}/installer.iss")
 
 if(CMAKE_SYSTEM_PROCESSOR MATCHES "ARM64")
-    set(INNOSETUP_ARCH_ID "arm64" PARENT_SCOPE)
+    set(INNOSETUP_ARCH_ID "arm64")
 elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "AMD64")
-    set(INNOSETUP_ARCH_ID "x64compatible" PARENT_SCOPE)
+    set(INNOSETUP_ARCH_ID "x64compatible")
 else()
-    set(INNOSETUP_ARCH_ID "x86compatible" PARENT_SCOPE)
+    set(INNOSETUP_ARCH_ID "x86compatible")
 endif()
+
+set_target_properties(innosetup_compiler
+        PROPERTIES
+        COMPILER_EXECUTABLE "${INNOSETUP_COMPILER_EXECUTABLE}"
+        ARCH_ID "${INNOSETUP_ARCH_ID}"
+        INSTALL_SCRIPT "${INNOSETUP_INSTALL_SCRIPT}"
+)

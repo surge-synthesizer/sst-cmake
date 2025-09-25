@@ -1,6 +1,4 @@
-if (NOT TARGET_DIR)
-    message(FATAL_ERROR "Target Dir not set in cmake step")
-endif()
+message(STATUS "Downloading inno into ${TARGET_DIR}")
 file(
     DOWNLOAD
         "https://files.jrsoftware.org/is/6/innosetup-6.5.4.exe"
