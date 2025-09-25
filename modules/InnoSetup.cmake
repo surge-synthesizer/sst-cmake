@@ -8,7 +8,7 @@ function(install_inno_setup)
             install_innosetup_compiler
             COMMAND
                 ${CMAKE_COMMAND} -P
-                "${CMAKE_CURRENT_LIST_DIR}/InnoSetup/download_innosetup_installer.cmake"
+                "${CMAKE_CURRENT_LIST_DIR}/InnoSetup/install_innosetup.cmake"
         )
 
         set(INNOSETUP_COMPILER_EXECUTABLE
