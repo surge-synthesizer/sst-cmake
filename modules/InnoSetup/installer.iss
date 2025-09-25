@@ -1,4 +1,6 @@
+#ifndef Publisher
 #define Publisher "Surge Synth Team"
+#endif
 
 #ifndef URL
 #define URL "https://www.surge-synth-team.org/"
@@ -82,7 +84,11 @@ Source: "{#StagedAssets}\{#Name}.clap"; DestDir: "{autocf}\CLAP\{#Publisher}\"; 
 #endif
 
 #ifdef VST3
+#ifdef VST3_IS_SINGLE_FILE
+Source: "{#StagedAssets}\{#Name}.vst3"; DestDir: "{autocf}\VST3\{#Publisher}\"; Components: VST3; Flags: ignoreversion
+#else
 Source: "{#StagedAssets}\{#Name}.vst3\*"; DestDir: "{autocf}\VST3\{#Publisher}\{#Name}.vst3\"; Components: VST3; Flags: ignoreversion recursesubdirs
+#endif
 #endif
 
 #ifdef SA
