@@ -5,10 +5,11 @@ function(install_inno_setup)
 
     if(NOT INNOSETUP_COMPILER_EXECUTABLE)
         add_custom_target(
-            install_innosetup_compiler
+            innosetup_compiler
+            WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
             COMMAND
                 ${CMAKE_COMMAND} -P
-                "${CMAKE_CURRENT_LIST_DIR}/InnoSetup/install_innosetup.cmake"
+                "${INNOSETUP_MODULE_DIR}/InnoSetup/install_innosetup.cmake"
         )
 
         set(INNOSETUP_COMPILER_EXECUTABLE
@@ -16,7 +17,7 @@ function(install_inno_setup)
             PARENT_SCOPE
         )
     else()
-        add_custom_target(install_innosetup_compiler)
+        add_custom_target(innosetup_compiler)
     endif()
 
     message(STATUS "Resolved iscc=${INNOSETUP_COMPILER_EXECUTABLE}")

@@ -56,6 +56,6 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
             /DStagedAssets="$<TARGET_FILE_DIR:innosetup_plugin>"
             /DData="${CMAKE_CURRENT_LIST_DIR}/data"
             "${INNOSETUP_INSTALL_SCRIPT}"
-        DEPENDS innosetup_plugin innosetup_standalone
+        DEPENDS innosetup_compiler innosetup_plugin innosetup_standalone
     )
 endif()
