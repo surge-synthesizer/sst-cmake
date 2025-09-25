@@ -31,7 +31,9 @@ DisableProgramGroupPage=yes
 #ifdef License
 LicenseFile={#License}
 #endif
+#ifdef Icon
 SetupIconFile={#Icon}
+#endif
 SolidCompression=yes
 UninstallDisplayIcon={uninstallexe}
 UninstallFilesDir={autoappdata}\{#Name}\uninstall
