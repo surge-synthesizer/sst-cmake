@@ -6,7 +6,7 @@ function(install_inno_setup)
     if(NOT INNOSETUP_COMPILER_EXECUTABLE)
         message(
             STATUS
-            "Inno Setup Compiler not found, downloading & installing..."
+            "Inno Setup Compiler not found, downloading & installing into ${CMAKE_BINARY_DIR}..."
         )
 
         file(
@@ -20,7 +20,7 @@ function(install_inno_setup)
         execute_process(
             COMMAND
                 "${CMAKE_BINARY_DIR}/innosetup-6.5.4.exe" /VERYSILENT
-                /CURRENTUSER /DIR=innosetup-6.5.4
+                /CURRENTUSER /DIR=${CMAKE_BINARY_DIR}/innosetup-6.5.4
         )
 
         find_program(
@@ -28,6 +28,8 @@ function(install_inno_setup)
             iscc
             PATHS ${CMAKE_BINARY_DIR}/innosetup-6.5.4
         )
+
+        message(STATUS "Resolved iscc=${INNOSETUP_COMPILER_EXECUTABLE}")
     endif()
 
     set(INNOSETUP_INSTALL_SCRIPT
