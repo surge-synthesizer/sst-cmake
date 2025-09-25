@@ -4,30 +4,14 @@ function(install_inno_setup)
     find_program(INNOSETUP_COMPILER_EXECUTABLE iscc)
 
     if(NOT INNOSETUP_COMPILER_EXECUTABLE)
-        message(
-            STATUS
-            "Inno Setup Compiler not found, downloading & installing into ${CMAKE_BINARY_DIR}..."
-        )
-
-        file(
-            DOWNLOAD
-                "https://files.jrsoftware.org/is/6/innosetup-6.5.4.exe"
-                "${CMAKE_BINARY_DIR}/innosetup-6.5.4.exe"
-            EXPECTED_HASH
-                SHA256=FA73BF47A4DA250D185D07561C2BFDA387E5E20DB77E4570004CF6A133CC10B1
-        )
-
-        execute_process(
+        add_custom_target(
+            install_innosetup_compiler
             COMMAND
-                "${CMAKE_BINARY_DIR}/innosetup-6.5.4.exe" /VERYSILENT
-                /CURRENTUSER /DIR=${CMAKE_BINARY_DIR}/innosetup-6.5.4
+                ${CMAKE_COMMAND} -P
+                "${CMAKE_CURRENT_LIST_DIR}/InnoSetup/download_innosetup_installer.cmake"
         )
 
-        find_program(
-            INNOSETUP_COMPILER_EXECUTABLE
-            iscc
-            PATHS ${CMAKE_BINARY_DIR}/innosetup-6.5.4
-        )
+        set(INNOSETUP_COMPILER_EXECUTABLE "${CMAKE_BINARY_DIR}/innosetup-6.5.4/iscc.exe" PARENT_SCOPE)
 
         message(STATUS "Resolved iscc=${INNOSETUP_COMPILER_EXECUTABLE}")
     endif()
