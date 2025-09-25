@@ -14,7 +14,7 @@
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Setup]
-OutputBaseFilename={#NameCondensed}-{#Version}-Windows-{#Arch}-setup
+OutputBaseFilename={#NameCondensed}-Windows-{#Arch}-{#Version}
 AppId={#ID}
 AppName={#Name}
 AppPublisher={#Publisher}
@@ -53,29 +53,29 @@ WizardSmallImageFile=blank.png
 ; PrivilegesRequiredOverridesAllowed=dialog
 
 [Types]
-Name: "full"; Description: "Full installation"
+Name: "full"; Description: "Full"
 Name: "custom"; Description: "Custom"; Flags: iscustom
 #ifdef CLAP
-Name: "clap"; Description: "CLAP installation"
+Name: "clap"; Description: "CLAP"
 #endif
 #ifdef VST3
-Name: "vst3"; Description: "VST3 installation"
+Name: "vst3"; Description: "VST3"
 #endif
 #ifdef SA
-Name: "standalone"; Description: "Standalone installation"
+Name: "standalone"; Description: "Standalone"
 #endif
 
 [Components]
 #ifdef CLAP
-Name: "CLAP"; Description: "{#Name} CLAP"; Types: full custom clap; Flags: checkablealone
+Name: "CLAP"; Description: "CLAP"; Types: full custom clap; Flags: checkablealone
 #endif
 
 #ifdef VST3
-Name: "VST3"; Description: "{#Name} VST3"; Types: full custom vst3; Flags: checkablealone
+Name: "VST3"; Description: "VST3"; Types: full custom vst3; Flags: checkablealone
 #endif
 
 #ifdef SA
-Name: "SA"; Description: "{#Name} Standalone"; Types: full custom standalone; Flags: checkablealone
+Name: "SA"; Description: "Standalone"; Types: full custom standalone; Flags: checkablealone
 #endif
 
 [Files]
