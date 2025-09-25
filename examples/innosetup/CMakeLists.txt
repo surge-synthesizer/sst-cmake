@@ -1,9 +1,7 @@
 project(InnoSetupExample VERSION 0.0.0)
 find_package(SST)
-include(InnoSetup)
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
-    install_inno_setup()
     message(STATUS "InnoSetup Compiler: ${INNOSETUP_COMPILER_EXECUTABLE}")
     message(STATUS "InnoSetup Architecture ID: ${INNOSETUP_ARCH_ID}")
     message(STATUS "InnoSetup install script: ${INNOSETUP_INSTALL_SCRIPT}")
@@ -56,6 +54,6 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
             /DStagedAssets="$<TARGET_FILE_DIR:innosetup_plugin>"
             /DData="${CMAKE_CURRENT_LIST_DIR}/data"
             "${INNOSETUP_INSTALL_SCRIPT}"
-        DEPENDS innosetup_plugin innosetup_standalone
+        DEPENDS innosetup_compiler innosetup_plugin innosetup_standalone
     )
 endif()
