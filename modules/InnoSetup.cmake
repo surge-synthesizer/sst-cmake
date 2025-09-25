@@ -11,10 +11,15 @@ function(install_inno_setup)
                 "${CMAKE_CURRENT_LIST_DIR}/InnoSetup/download_innosetup_installer.cmake"
         )
 
-        set(INNOSETUP_COMPILER_EXECUTABLE "${CMAKE_BINARY_DIR}/innosetup-6.5.4/iscc.exe" PARENT_SCOPE)
-
-        message(STATUS "Resolved iscc=${INNOSETUP_COMPILER_EXECUTABLE}")
+        set(INNOSETUP_COMPILER_EXECUTABLE
+            "${CMAKE_BINARY_DIR}/innosetup-6.5.4/iscc.exe"
+            PARENT_SCOPE
+        )
+    else()
+        add_custom_target(install_innosetup_compiler)
     endif()
+
+    message(STATUS "Resolved iscc=${INNOSETUP_COMPILER_EXECUTABLE}")
 
     set(INNOSETUP_INSTALL_SCRIPT
         ${INNOSETUP_MODULE_DIR}/InnoSetup/installer.iss
