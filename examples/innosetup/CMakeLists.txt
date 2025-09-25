@@ -1,9 +1,7 @@
 project(InnoSetupExample VERSION 0.0.0)
 find_package(SST)
-include(InnoSetup)
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
-    install_inno_setup()
     message(STATUS "InnoSetup Compiler: ${INNOSETUP_COMPILER_EXECUTABLE}")
     message(STATUS "InnoSetup Architecture ID: ${INNOSETUP_ARCH_ID}")
     message(STATUS "InnoSetup install script: ${INNOSETUP_INSTALL_SCRIPT}")
