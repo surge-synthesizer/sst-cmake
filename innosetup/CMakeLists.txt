@@ -21,14 +21,15 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
             set(INNOSETUP_ARCH_ID "x86compatible")
         endif()
 
-        add_executable(innosetup::compiler IMPORTED GLOBAL)
-
-        set_target_properties(
-            innosetup::compiler
-            PROPERTIES
-                IMPORTED_LOCATION "${INNOSETUP_COMPILER_EXECUTABLE}"
-                ARCH_ID "${INNOSETUP_ARCH_ID}"
-                INSTALL_SCRIPT "${CMAKE_CURRENT_LIST_DIR}/installer.iss"
-        )
+        if(NOT TARGET innosetup::compiler)
+            add_executable(innosetup::compiler IMPORTED GLOBAL)
+            set_target_properties(
+                innosetup::compiler
+                PROPERTIES
+                    IMPORTED_LOCATION "${INNOSETUP_COMPILER_EXECUTABLE}"
+                    ARCH_ID "${INNOSETUP_ARCH_ID}"
+                    INSTALL_SCRIPT "${CMAKE_CURRENT_LIST_DIR}/installer.iss"
+            )
+        endif()
     endif()
 endif()
