@@ -7,6 +7,7 @@ if(NOT INNOSETUP_COMPILER_EXECUTABLE)
         COMMAND
             ${CMAKE_COMMAND} -P
             "${CMAKE_CURRENT_LIST_DIR}/install_innosetup.cmake"
+            -DTARGET_DIR="${CMAKE_BINARY_DIR}"
     )
 
     set(INNOSETUP_COMPILER_EXECUTABLE
