@@ -9,6 +9,7 @@ if(NOT PROJECT_IS_TOP_LEVEL)
 endif()
 
 add_subdirectory(innosetup)
+set(INNOSETUP_INSTALL_SCRIPT "${INNOSETUP_INSTALL_SCRIPT}" PARENT_SCOPE)
 
 if(PROJECT_IS_TOP_LEVEL)
     add_subdirectory("examples")
