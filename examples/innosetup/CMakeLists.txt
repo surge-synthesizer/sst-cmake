@@ -1,20 +1,18 @@
 project(InnoSetupExample VERSION 0.0.0)
-find_package(SST)
 
 add_library(innosetup_plugin)
-add_executable(innosetup_standalone)
+
+target_compile_features(innosetup_plugin PRIVATE c_std_17 cxx_std_20)
+
 set_target_properties(innosetup_plugin PROPERTIES SUFFIX ".clap")
+
+add_executable(innosetup_standalone)
+
+target_compile_features(innosetup_standalone PRIVATE c_std_17 cxx_std_20)
+
 set_target_properties(
     innosetup_standalone
     PROPERTIES OUTPUT_NAME "innosetup_plugin"
-)
-target_link_libraries(
-    innosetup_plugin
-    PRIVATE sst::compile_features sst::compile_options sst::link_options
-)
-target_link_libraries(
-    innosetup_standalone
-    PRIVATE sst::compile_features sst::compile_options sst::link_options
 )
 
 add_custom_command(
