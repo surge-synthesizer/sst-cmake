@@ -46,7 +46,7 @@ SetupIconFile={#Icon}
 #endif
 SolidCompression=yes
 UninstallDisplayIcon={uninstallexe}
-UninstallFilesDir={autoappdata}\{#Name}\uninstall
+UninstallFilesDir={autoappdata}\{#Publisher}\{#Name}\uninstall
 WizardStyle=modern
 WizardSizePercent=100
 WizardImageAlphaFormat=defined
