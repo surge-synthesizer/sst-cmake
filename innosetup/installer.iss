@@ -44,7 +44,12 @@ LicenseFile={#License}
 #ifdef Icon
 SetupIconFile={#Icon}
 #endif
+Compression=lzma2/ultra64
 SolidCompression=yes
+LZMAUseSeparateProcess=yes
+LZMANumBlockThreads=6
+LZMANumFastBytes=273
+LZMADictionarySize=1048576
 UninstallDisplayIcon={uninstallexe}
 UninstallFilesDir={autoappdata}\{#Publisher}\{#Name}\uninstall
 WizardStyle=modern dynamic
