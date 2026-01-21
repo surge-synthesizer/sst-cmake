@@ -129,6 +129,14 @@ Source: "{#Data}\*"; DestDir: "{code:get_data_path}"; Flags: ignoreversion recur
 
 [Icons]
 Name: "{group}\{#Name}"; Filename: "{app}\{#Name}.exe"; Flags: createonlyiffileexists
+#ifdef SA
+Name: "{autodesktop}\{#Name}"; Filename: "{app}\{#Name}.exe"; Tasks: desktopicon; Components: SA; Flags: createonlyiffileexists
+#endif
+
+[Tasks]
+#ifdef SA
+Name: "desktopicon"; Description: "Create a &desktop shortcut"; Components: SA; Flags: unchecked
+#endif
 
 [Code]
 function get_data_path(Param: string): string;
