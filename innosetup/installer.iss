@@ -119,7 +119,11 @@ Source: "{#StagedAssets}\{#Name}.exe"; DestDir: "{app}"; Components: SA; Flags: 
 #define FORMATS FORMATS + " standalone"
 #endif
 
-Name: "Data"; Description: "Data files"; Types: full custom{#FORMATS}; Flags: fixed disablenouninstallwarning
+Name: "Data"; Description: "Data Files"; Types: full custom{#FORMATS}; Flags: fixed disablenouninstallwarning
+
+[InstallDelete]
+Type: filesandordirs; Name: "{code:get_data_path}\{#Publisher}\{#Name}"
+
 [Files]
 Source: "{#Data}\*"; DestDir: "{code:get_data_path}"; Flags: ignoreversion recursesubdirs
 #endif
@@ -129,9 +133,6 @@ Name: "{group}\{#Name}"; Filename: "{app}\{#Name}.exe"; Flags: createonlyiffilee
 #ifdef SA
 Name: "{autodesktop}\{#Name}"; Filename: "{app}\{#Name}.exe"; Tasks: desktopicon; Components: SA; Flags: createonlyiffileexists
 #endif
-
-[InstallDelete]
-Type: filesandordirs; Name: "{code:get_data_path}"
 
 [Tasks]
 #ifdef SA
