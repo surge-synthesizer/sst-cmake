@@ -130,6 +130,9 @@ Name: "{group}\{#Name}"; Filename: "{app}\{#Name}.exe"; Flags: createonlyiffilee
 Name: "{autodesktop}\{#Name}"; Filename: "{app}\{#Name}.exe"; Tasks: desktopicon; Components: SA; Flags: createonlyiffileexists
 #endif
 
+[InstallDelete]
+Type: filesandordirs; Name: "{code:get_data_path}"
+
 [Tasks]
 #ifdef SA
 Name: "desktopicon"; Description: "Create a &desktop shortcut"; Components: SA; Flags: unchecked
